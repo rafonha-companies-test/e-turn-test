@@ -1,39 +1,81 @@
 ﻿<!-- public/partials/form.html -->
 
 <h1 class="text-center">Novo contato</h1>
-<form>
+<form name="ContactForm" ng-controller="ContactController" role="form">
     <div class="form-group">
         <label for="name">Nome completo: </label>
-        <input type="text" id="name" /><br />
+        <input type="text" id="name" name="name" class="form-control" ng-minlength="3" ng-model="ContactController.contact.name" ng-required="true" /><br />
+        <code ng-show="ContactForm.name.$error.required && ContactForm.name.$dirty">Informe o nome de usuário!</code>
+        <code ng-show="ContactForm.name.$error.minlength">O campo usuário deverá no mínimo 3 caracteres</code>
     </div>
+
     <div class="form-group">
         <label for="email">E-mail: </label>
-        <input type="email" id="email" /><br />
+        <input type="email" id="email" name="email" class="form-control" ng-model="ContactController.contact.email" ng-required="true" ng-change="verifyDuplicityEmail()"/><br />
+        <code ng-show="ContactForm.email.$error.required && ContactForm.email.$dirty">Informe o e-mail!</code>
+        <code ng-show="ContactForm.email.$error.pattern">Informe um e-mail válido!</code>
+        <code ng-show="ContactForm.email.$error.duplicated">E-mail já cadastrado!</code>
     </div>
-    <div class="form-group phone-numbers">
-        <label for="phone-number">Telefones:  </label>
-        <input type="tel" id="phone-number" /><br />
+
+    <label for="phone-number">Telefones:  </label>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-4">
+                <div class="form-group">
+                    <input type="tel" id="phone-number" name="phone-number" ng-model="ContactController.contact.phoneNumber" ng-pattern="vr.regex" class="form-control"  ng-change="verifyDuplicityPhone()" ng-required="true"/>
+                    <code ng-show="ContactForm.phone-number.$error.required && ContactForm.email.$dirty">Informe pelo menos um telefone!</code>
+                    <code ng-show="ContactForm.phone-number.$error.pattern">Informe um telefone válido!</code>
+                    <code ng-show="ContactForm.phone-number.$error.duplicated">Telefone já cadastrado!</code>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-4">
+                <button ng-click="addPhones()" id="add-phone" class="btn btn-secondary btn-sm">Adicionar mais um telefone</button><br /><br />
+            </div>
+        </div>
     </div>
-    <button id="add-phone">Adicionar mais um telefone</button><br /><br />
+
     <div class="form-group">
         <label for="comments">Observação de contato:  </label><br />
-        <input type="text" id="comments" /><br />
+        <input type="text" id="comments" class="form-control" ng-model="ContactController.contact.comments" /><br />
     </div>
-    <div class="form-group addresses">
+
+    <div class="form-group" id="addresses">
         Endereços: <br />
-        <label for="zip-code">CEP: </label>
-        <input type="number" id="zip-code" /><button>Buscar</button><br />
-        <label for="street">Logradouro:  </label>
-        <input type="text" id="street" /><br />
-        <label for="street-number">Nº: </label>
-        <input type="number" id="street-number" />
-        <label for="neighbourhood">Bairro:  </label>
-        <input type="text" id="neighbourhood" /><br />
-        <label for="city">Cidade:  </label>
-        <input type="text" id="city" /><br />
-        <label for="state">Estado:  </label>
-        <input type="text" id="state" /><br />
+        <div class="container">
+            <label for="zip-code">CEP: </label>
+            <input type="number" id="cep" class="" ng-model="ContactController.found_location.cep" /><button class="" ng-click="ContactController.searchCEP()">Buscar</button>
+            <button class="btn btn-secondary btn-sm">Adicionar mais um endereço</button>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-lg-9">
+                    <label for="street">Logradouro:  </label>
+                    <input type="text" id="street" class="form-control" ng-model="contactController.found_location.Logradouro" readonly /><br />
+                </div>
+                <div class="col-sm-12 col-lg-3">
+                    <label for="street-number">Nº: </label>
+                    <input type="number" id="street-number" class="form-control" ng-model="ContactController.contact.streetNumber" />
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-lg-8">
+                    <label for="neighbourhood">Bairro:  </label>
+                    <input type="text" id="neighbourhood" class="form-control" ng-model="ContactController.found_location.Bairro" readonly /><br />
+                </div>
+                <div class="col-sm-12 col-lg-3">
+                    <label for="city">Cidade:  </label>
+                    <input type="text" id="city" class="form-control" ng-model="ContactController.found_location.Cidade" readonly /><br />
+                </div>
+                <div class="col-sm-12 col-lg-1">
+                    <label for="state">Estado:  </label>
+                    <input type="text" id="state" class="form-control" ng-model="ContactController.found_location.Estado" readonly /><br />
+                </div>
+            </div>
+        </div>
     </div>
-    <button>Adicionar mais um endereço</button><br /><br />
-    <input type="submit" />
+    <input type="submit" ng-disabled="!ContactForm.$valid" class="btn btn-primary mb-2" ng-click="ContactController.addContact()" />
 </form>
