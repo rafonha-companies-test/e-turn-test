@@ -74,14 +74,8 @@ angular.module('NewContact').controller('ContactController', function ContactCon
         vr.contacts.push({
             name: vr.contact.name,
             email: vr.contact.email,
-            phoneNumber: vr.phones[$index],
-            comments: vr.contact.comments,
-            cep: vr.cep,
-            street: vr.address.logradouro,
-            streetNumber: vr.address.streetNumber,
-            neighbourhood: vr.address.bairro,
-            city: vr.address.cidade,
-            state: vr.address.estado
+            phoneNumber: vr.phones,
+            address: vr.addresses
         });
 
         //Limpa o formulário depois de adicionar as informações
