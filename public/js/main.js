@@ -4,7 +4,8 @@ angular.module('NewContact', ['ngRoute']).config(function ($routeProvider, $loca
 
     $routeProvider.when('/main', {
         templateUrl: 'partials/form.html',
-        controller: 'ContactController'
+        controller: 'ContactController',
+        controllerAs: 'contactCtrl'
     });
 
     $routeProvider.otherwise({ redirectTo: '/main' });

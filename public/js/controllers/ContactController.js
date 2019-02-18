@@ -8,7 +8,6 @@ angular.module('NewContact').controller('ContactController', function ContactCon
 
     //Procura o cep na API Postmon
     vr.searchCEP = function () {
-        console.log('fazendo')
         $http.get('http://api.postmon.com.br/cep/' + vr.cep).success(function (location) {
             vr.found_location = location;
             console.log(location);
