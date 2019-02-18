@@ -24,19 +24,19 @@
     <label for="phone-number">Telefones:  </label>
     <div class="container">
         <div class="row">
-            <fieldset data-ng-repeat="field in vr.phones track by $index">
-                <div class="col-sm-12 col-lg-4">
-                    <div class="form-group">
-                        <input type="tel" id="phone-number" name="phoneNumber" ng-model="vr.phones[$index]" ng-pattern="vr.regex" class="form-control"  ng-change="verifyDuplicityPhone()" ng-required="true"/>
-                        <code ng-show="ContactForm.phoneNumber.$error.required && ContactForm.email.$dirty">Informe pelo menos um telefone!</code>
-                        <code ng-show="ContactForm.phoneNumber.$error.pattern">Informe um telefone válido!</code>
-                        <code ng-show="ContactForm.phoneNumber.$error.duplicated">Telefone já cadastrado!</code>
+            
+                <div class="col-sm-12 col-lg-4" >
+                    <div class="form-group" ng-repeat="phone in contactCtrl.phones track by $index">
+                        <input type="tel" name="phoneNumber{{$index}}" ng-model="phone" ng-pattern="vr.regex" class="form-control"  ng-change="verifyDuplicityPhone()" ng-required="true"/>
+                        <code ng-show="ContactForm.phoneNumber{{$index}}.$error.required && ContactForm.email.$dirty">Informe pelo menos um telefone!</code>
+                        <code ng-show="ContactForm.phoneNumber{{$index}}.$error.pattern">Informe um telefone válido!</code>
+                        <code ng-show="ContactForm.phoneNumber{{$index}}.$error.duplicated">Telefone já cadastrado!</code>
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <button ng-click="addPhones()" id="add-phone" class="btn btn-secondary btn-sm">Adicionar mais um telefone</button><br /><br />
                 </div>
-            </fieldset>
+            
         </div>
     </div>
 
@@ -47,45 +47,41 @@
     </div>
 
     <!-- Endereços -->
-    <div class="form-group" id="addresses">
-        Endereços: <br />
-        <fieldset data-ng-repeat="field in vr.addresses track by $index">
-            <div class="container">
-                <label for="zip-code">CEP: </label>
-                <input type="number" id="cep" name="cep" ng-model="contactCtrl.cep" /><button class="" ng-click="contactCtrl.searchCEP()">Buscar</button>
-                <button class="btn btn-secondary btn-sm" ng-click="addAdresses()" >Adicionar mais um endereço</button>
-            </div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12 col-lg-9">
-                        <label for="street">Logradouro:  </label>
-                        <input type="text" id="street" name="street" class="form-control" ng-model="contactCtrl.contact.logradouro" readonly /><br />
-                    </div>
-                    <div class="col-sm-12 col-lg-3">
-                        <label for="street-number">Nº: </label>
-                        <input type="number" id="street-number" class="form-control" ng-model="contactCtrl.contact.streetNumber" />
-                    </div>
+    <div data-ng-repeat="address in contactCtrl.addresses track by $index">
+        <div class="container">
+            <label for="zip-code">CEP: </label>
+            <input type="number" id="cep" name="cep{{$index}}" ng-model="address.cep" /><button ng-click="contactCtrl.searchCEP($index)">Buscar</button>
+            <button class="btn btn-secondary btn-sm">Adicionar mais um endereço</button>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-lg-9">
+                    <label for="street">Logradouro: </label>
+                    <input type="text" id="street" name="street{{$index}}" class="form-control" ng-model="address.logradouro"
+                           readonly /><br />
+                </div>
+                <div class="col-sm-12 col-lg-3">
+                    <label for="street-number">Nº: </label>
+                    <input type="number" id="street-number" class="form-control" ng-model="address.streetNumber" />
                 </div>
             </div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12 col-lg-8">
-                        <label for="neighbourhood">Bairro:  </label>
-                        <input type="text" id="neighbourhood" class="form-control" ng-model="contactCtrl.contact.bairro" readonly /><br />
-                    </div>
-                    <div class="col-sm-12 col-lg-3">
-                        <label for="city">Cidade:  </label>
-                        <input type="text" id="city" class="form-control" ng-model="contactCtrl.contact.cidade" readonly /><br />
-                    </div>
-                    <div class="col-sm-12 col-lg-1">
-                        <label for="state">Estado:  </label>
-                        <input type="text" id="state" class="form-control" ng-model="contactCtrl.contact.estado" readonly /><br />
-                    </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-lg-8">
+                    <label for="neighbourhood">Bairro: </label>
+                    <input type="text" id="neighbourhood" class="form-control" ng-model="address.bairro" readonly /><br />
+                </div>
+                <div class="col-sm-12 col-lg-3">
+                    <label for="city">Cidade: </label>
+                    <input type="text" id="city" class="form-control" ng-model="address.cidade" readonly /><br />
+                </div>
+                <div class="col-sm-12 col-lg-1">
+                    <label for="state">Estado: </label>
+                    <input type="text" id="state" class="form-control" ng-model="address.estado" readonly /><br />
                 </div>
             </div>
-        </fieldset>
+        </div>
     </div>
     <input type="submit" ng-disabled="!ContactForm.$valid" class="btn btn-primary mb-2" ng-click="contactCtrl.addContact()" />
 </form>

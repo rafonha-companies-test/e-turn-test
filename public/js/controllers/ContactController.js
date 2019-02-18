@@ -7,14 +7,14 @@ angular.module('NewContact').controller('ContactController', function ContactCon
     vr.regex = '^[1-9]{2}\-[2-9][0-9]{7,8}$';
 
     //Procura o cep na API Postmon
-    vr.searchCEP = function () {
-        $http.get('http://api.postmon.com.br/cep/' + vr.cep).then(function (location) {
+    vr.searchCEP = function (index) {
+        $http.get('http://api.postmon.com.br/cep/' + vr.addresses[index].cep).then(function (location) {
             vr.found_location = location;
             console.log(location);
-                vr.contact.bairro = location.data.bairro,
-                vr.contact.logradouro = location.data.logradouro, 
-                vr.contact.cidade = location.data.cidade,
-                vr.contact.estado = location.data.estado
+            vr.addresses[index].bairro = location.data.bairro,
+                vr.addresses[index].logradouro = location.data.logradouro,
+                vr.addresses[index].cidade = location.data.cidade,
+                vr.addresses[index].estado = location.data.estado
 
         });
     };
@@ -74,14 +74,14 @@ angular.module('NewContact').controller('ContactController', function ContactCon
         vr.contacts.push({
             name: vr.contact.name,
             email: vr.contact.email,
-            phoneNumber: vr.phonesSet.phones[$index],
+            phoneNumber: vr.phones[$index],
             comments: vr.contact.comments,
             cep: vr.cep,
-            street: vr.contact.logradouro,
-            streetNumber: vr.contact.streetNumber,
-            neighbourhood: vr.contact.bairro,
-            city: vr.contact.cidade,
-            state: vr.contact.estado
+            street: vr.address.logradouro,
+            streetNumber: vr.address.streetNumber,
+            neighbourhood: vr.address.bairro,
+            city: vr.address.cidade,
+            state: vr.address.estado
         });
 
         //Limpa o formulário depois de adicionar as informações
