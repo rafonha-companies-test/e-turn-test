@@ -11,7 +11,11 @@ angular.module('NewContact').controller('ContactController', function ContactCon
         $http.get('http://api.postmon.com.br/cep/' + vr.cep).then(function (location) {
             vr.found_location = location;
             console.log(location);
-            vr.contact.Bairro = location.data.Bairro
+                vr.contact.bairro = location.data.bairro,
+                vr.contact.logradouro = location.data.logradouro, 
+                vr.contact.cidade = location.data.cidade,
+                vr.contact.estado = location.data.estado
+
         });
     };
 
@@ -44,13 +48,15 @@ angular.module('NewContact').controller('ContactController', function ContactCon
             email: vr.contact.email,
             phoneNumber: vr.contact.phoneNumber,
             comments: vr.contact.comments,
-            cep: vr.contact.cep,
-            street: vr.contact.Logradouro,
+            cep: vr.cep,
+            street: vr.contact.logradouro,
             streetNumber: vr.contact.streetNumber,
-            neighbourhood: vr.contact.Bairro,
-            city: vr.contact.Cidade,
-            state: vr.contact.Estado
+            neighbourhood: vr.contact.bairro,
+            city: vr.contact.cidade,
+            state: vr.contact.estado
         });
+
+        console.log(contacts)
 
         //Limpa o formulário depois de adicionar as informações
         vr.contact = {};
