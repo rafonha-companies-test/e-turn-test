@@ -2,6 +2,8 @@
 
 <h1 class="text-center">Novo contato</h1>
 <form name="ContactForm" role="form">
+
+    <!-- Nome -->
     <div class="form-group">
         <label for="name">Nome completo: </label>
         <input type="text" id="name" name="name" class="form-control" ng-minlength="3" ng-model="contactCtrl.contact.name" ng-required="true" /><br />
@@ -9,6 +11,7 @@
         <code ng-show="ContactForm.name.$error.minlength">O campo usuário deverá no mínimo 3 caracteres</code>
     </div>
 
+    <!-- E-mail -->
     <div class="form-group">
         <label for="email">E-mail: </label>
         <input type="email" id="email" name="email" class="form-control" ng-model="contactCtrl.contact.email" ng-required="true" ng-change="verifyDuplicityEmail()"/><br />
@@ -17,65 +20,72 @@
         <code ng-show="ContactForm.email.$error.duplicated">E-mail já cadastrado!</code>
     </div>
 
+    <!-- Telefones -->
     <label for="phone-number">Telefones:  </label>
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-lg-4">
-                <div class="form-group">
-                    <input type="tel" id="phone-number" name="phoneNumber" ng-model="contactCtrl.contact.phoneNumber" ng-pattern="vr.regex" class="form-control"  ng-change="verifyDuplicityPhone()" ng-required="true"/>
-                    <code ng-show="ContactForm.phoneNumber.$error.required && ContactForm.email.$dirty">Informe pelo menos um telefone!</code>
-                    <code ng-show="ContactForm.phoneNumber.$error.pattern">Informe um telefone válido!</code>
-                    <code ng-show="ContactForm.phoneNumber.$error.duplicated">Telefone já cadastrado!</code>
+            <fieldset data-ng-repeat="field in phonesSet.phones track by $index" >
+                <div class="col-sm-12 col-lg-4">
+                    <div class="form-group">
+                        <input type="tel" id="phone-number" name="phoneNumber" ng-model="phonesSet.phones[$index]" ng-pattern="vr.regex" class="form-control"  ng-change="verifyDuplicityPhone()" ng-required="true"/>
+                        <code ng-show="ContactForm.phoneNumber.$error.required && ContactForm.email.$dirty">Informe pelo menos um telefone!</code>
+                        <code ng-show="ContactForm.phoneNumber.$error.pattern">Informe um telefone válido!</code>
+                        <code ng-show="ContactForm.phoneNumber.$error.duplicated">Telefone já cadastrado!</code>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-12 col-lg-4">
-                <button ng-click="addPhones()" id="add-phone" class="btn btn-secondary btn-sm">Adicionar mais um telefone</button><br /><br />
-            </div>
+                <div class="col-sm-12 col-lg-4">
+                    <button ng-click="addPhones()" id="add-phone" class="btn btn-secondary btn-sm">Adicionar mais um telefone</button><br /><br />
+                </div>
+            </fieldset>
         </div>
     </div>
 
+    <!-- Observações -->
     <div class="form-group">
         <label for="comments">Observação de contato:  </label><br />
         <input type="text" id="comments" class="form-control" ng-model="contactCtrl.contact.comments" /><br />
     </div>
 
+    <!-- Endereços -->
     <div class="form-group" id="addresses">
         Endereços: <br />
-        <div class="container">
-            <label for="zip-code">CEP: </label>
-            <input type="number" id="cep" name="cep" ng-model="contactCtrl.cep" /><button class="" ng-click="contactCtrl.searchCEP()">Buscar</button>
-            <button class="btn btn-secondary btn-sm">Adicionar mais um endereço</button>
-        </div>
+        <fieldset data-ng-repeat="field in addressesSet.addresses track by $index">
+            <div class="container">
+                <label for="zip-code">CEP: </label>
+                <input type="number" id="cep" name="cep" ng-model="contactCtrl.cep" /><button class="" ng-click="contactCtrl.searchCEP()">Buscar</button>
+                <button class="btn btn-secondary btn-sm">Adicionar mais um endereço</button>
+            </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-lg-9">
-                    <label for="street">Logradouro:  </label>
-                    <input type="text" id="street" name ="street" class="form-control" ng-model="contactCtrl.contact.logradouro" readonly /><br />
-                </div>
-                <div class="col-sm-12 col-lg-3">
-                    <label for="street-number">Nº: </label>
-                    <input type="number" id="street-number" class="form-control" ng-model="contactCtrl.contact.streetNumber" />
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-9">
+                        <label for="street">Logradouro:  </label>
+                        <input type="text" id="street" name="street" class="form-control" ng-model="contactCtrl.contact.logradouro" readonly /><br />
+                    </div>
+                    <div class="col-sm-12 col-lg-3">
+                        <label for="street-number">Nº: </label>
+                        <input type="number" id="street-number" class="form-control" ng-model="contactCtrl.contact.streetNumber" />
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-lg-8">
-                    <label for="neighbourhood">Bairro:  </label>
-                    <input type="text" id="neighbourhood" class="form-control" ng-model="contactCtrl.contact.bairro" readonly /><br />
-                </div>
-                <div class="col-sm-12 col-lg-3">
-                    <label for="city">Cidade:  </label>
-                    <input type="text" id="city" class="form-control" ng-model="contactCtrl.contact.cidade" readonly /><br />
-                </div>
-                <div class="col-sm-12 col-lg-1">
-                    <label for="state">Estado:  </label>
-                    <input type="text" id="state" class="form-control" ng-model="contactCtrl.contact.estado" readonly /><br />
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-8">
+                        <label for="neighbourhood">Bairro:  </label>
+                        <input type="text" id="neighbourhood" class="form-control" ng-model="contactCtrl.contact.bairro" readonly /><br />
+                    </div>
+                    <div class="col-sm-12 col-lg-3">
+                        <label for="city">Cidade:  </label>
+                        <input type="text" id="city" class="form-control" ng-model="contactCtrl.contact.cidade" readonly /><br />
+                    </div>
+                    <div class="col-sm-12 col-lg-1">
+                        <label for="state">Estado:  </label>
+                        <input type="text" id="state" class="form-control" ng-model="contactCtrl.contact.estado" readonly /><br />
+                    </div>
                 </div>
             </div>
-        </div>
+        </fieldset>
     </div>
     <input type="submit" ng-disabled="!ContactForm.$valid" class="btn btn-primary mb-2" ng-click="contactCtrl.addContact()" />
 </form>

@@ -1,4 +1,4 @@
-angular.module('NewContact').controller('ContactController', function ContactController($http) {
+angular.module('NewContact').controller('ContactController', function ContactController($http, $rootScope) {
 
     var vr = this;
     vr.contact = {};
@@ -41,12 +41,40 @@ angular.module('NewContact').controller('ContactController', function ContactCon
         }
     }
 
+    //Adiciona mais um telefone
+    vr.phonesSet = {
+        phones: []
+    };
+    vr.phonesSet.phones = [];   
+
+    vr.addPhones = function () {
+        $scope.phonesSet.phones.push('');
+    }
+
+    //Adiciona mais um endereço
+    vr.addressesSet = {
+        addresses: []
+    };
+
+    vr.addressesSet.addresses = [
+        cep = vr.cep,
+        street = vr.contact.logradouro,
+        streetNumber = vr.contact.streetNumber,
+        neighbourhood = vr.contact.bairro,
+        city = vr.contact.cidade,
+        state = vr.contact.estado
+    ];
+
+    vr.addAddresses = function () {
+        $scope.addressesSet.addresses.push('');
+    }
+
     //Adiciona contato em contacts
     vr.addContact = function () {
         vr.contacts.push({
             name: vr.contact.name,
             email: vr.contact.email,
-            phoneNumber: vr.contact.phoneNumber,
+            phoneNumber: vr.phonesSet.phones[$index],
             comments: vr.contact.comments,
             cep: vr.cep,
             street: vr.contact.logradouro,
@@ -56,9 +84,8 @@ angular.module('NewContact').controller('ContactController', function ContactCon
             state: vr.contact.estado
         });
 
-        console.log(contacts)
-
         //Limpa o formulário depois de adicionar as informações
         vr.contact = {};
-    }
+    }   
+
 })
