@@ -1,7 +1,7 @@
 ﻿<!-- public/partials/form.html -->
 
 <h1 class="text-center">Novo contato</h1>
-<form name="ContactForm" ng-controller="ContactController" role="form">
+<form name="ContactForm" role="form">
     <div class="form-group">
         <label for="name">Nome completo: </label>
         <input type="text" id="name" name="name" class="form-control" ng-minlength="3" ng-model="ContactController.contact.name" ng-required="true" /><br />
@@ -22,10 +22,10 @@
         <div class="row">
             <div class="col-sm-12 col-lg-4">
                 <div class="form-group">
-                    <input type="tel" id="phone-number" name="phone-number" ng-model="ContactController.contact.phoneNumber" ng-pattern="vr.regex" class="form-control"  ng-change="verifyDuplicityPhone()" ng-required="true"/>
-                    <code ng-show="ContactForm.phone-number.$error.required && ContactForm.email.$dirty">Informe pelo menos um telefone!</code>
-                    <code ng-show="ContactForm.phone-number.$error.pattern">Informe um telefone válido!</code>
-                    <code ng-show="ContactForm.phone-number.$error.duplicated">Telefone já cadastrado!</code>
+                    <input type="tel" id="phone-number" name="phoneNumber" ng-model="ContactController.contact.phoneNumber" ng-pattern="vr.regex" class="form-control"  ng-change="verifyDuplicityPhone()" ng-required="true"/>
+                    <code ng-show="ContactForm.phoneNumber.$error.required && ContactForm.email.$dirty">Informe pelo menos um telefone!</code>
+                    <code ng-show="ContactForm.phoneNumber.$error.pattern">Informe um telefone válido!</code>
+                    <code ng-show="ContactForm.phoneNumber.$error.duplicated">Telefone já cadastrado!</code>
                 </div>
             </div>
             <div class="col-sm-12 col-lg-4">
@@ -43,7 +43,7 @@
         Endereços: <br />
         <div class="container">
             <label for="zip-code">CEP: </label>
-            <input type="number" id="cep" class="" ng-model="ContactController.found_location.cep" /><button class="" ng-click="ContactController.searchCEP()">Buscar</button>
+            <input type="number" id="cep" class="" ng-model="ContactController.cep" /><button class="" ng-click="ContactController.searchCEP()">Buscar</button>
             <button class="btn btn-secondary btn-sm">Adicionar mais um endereço</button>
         </div>
 
