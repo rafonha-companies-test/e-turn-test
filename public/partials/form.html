@@ -43,7 +43,7 @@
         Endereços: <br />
         <div class="container">
             <label for="zip-code">CEP: </label>
-            <input type="number" id="cep" ng-model="contactCtrl.cep" /><button class="" ng-click="contactCtrl.searchCEP()">Buscar</button>
+            <input type="number" id="cep" name="cep" ng-model="contactCtrl.cep" /><button class="" ng-click="contactCtrl.searchCEP()">Buscar</button>
             <button class="btn btn-secondary btn-sm">Adicionar mais um endereço</button>
         </div>
 
@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col-sm-12 col-lg-9">
                     <label for="street">Logradouro:  </label>
-                    <input type="text" id="street" class="form-control" ng-model="contactCtrl.found_location.Logradouro" readonly /><br />
+                    <input type="text" id="street" name ="street" class="form-control" ng-model="contactCtrl.found_location.Logradouro" readonly /><br />
                 </div>
                 <div class="col-sm-12 col-lg-3">
                     <label for="street-number">Nº: </label>
