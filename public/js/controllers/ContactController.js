@@ -42,31 +42,31 @@ angular.module('NewContact').controller('ContactController', function ContactCon
     }
 
     //Adiciona mais um telefone
-    vr.phonesSet = {
-        phones: []
-    };
-    vr.phonesSet.phones = [];   
+    vr.phones = [''];
 
     vr.addPhones = function () {
-        $scope.phonesSet.phones.push('');
+        vr.phones.push('');
     }
 
     //Adiciona mais um endereço
-    vr.addressesSet = {
-        addresses: []
-    };
-
-    vr.addressesSet.addresses = [
-        cep = vr.cep,
-        street = vr.contact.logradouro,
-        streetNumber = vr.contact.streetNumber,
-        neighbourhood = vr.contact.bairro,
-        city = vr.contact.cidade,
-        state = vr.contact.estado
-    ];
+    vr.addresses = [{
+        cep: '',
+        street: '',
+        streetNumber: '',
+        neighbourhood: '',
+        city: '',
+        state: ''
+    }]
 
     vr.addAddresses = function () {
-        $scope.addressesSet.addresses.push('');
+        vr.addresses.push({
+            cep: '',
+            street: '',
+            streetNumber: '',
+            neighbourhood: '',
+            city: '',
+            state: ''
+        });
     }
 
     //Adiciona contato em contacts

@@ -24,10 +24,10 @@
     <label for="phone-number">Telefones:  </label>
     <div class="container">
         <div class="row">
-            <fieldset data-ng-repeat="field in phonesSet.phones track by $index" >
+            <fieldset data-ng-repeat="field in vr.phones track by $index">
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group">
-                        <input type="tel" id="phone-number" name="phoneNumber" ng-model="phonesSet.phones[$index]" ng-pattern="vr.regex" class="form-control"  ng-change="verifyDuplicityPhone()" ng-required="true"/>
+                        <input type="tel" id="phone-number" name="phoneNumber" ng-model="vr.phones[$index]" ng-pattern="vr.regex" class="form-control"  ng-change="verifyDuplicityPhone()" ng-required="true"/>
                         <code ng-show="ContactForm.phoneNumber.$error.required && ContactForm.email.$dirty">Informe pelo menos um telefone!</code>
                         <code ng-show="ContactForm.phoneNumber.$error.pattern">Informe um telefone válido!</code>
                         <code ng-show="ContactForm.phoneNumber.$error.duplicated">Telefone já cadastrado!</code>
@@ -49,11 +49,11 @@
     <!-- Endereços -->
     <div class="form-group" id="addresses">
         Endereços: <br />
-        <fieldset data-ng-repeat="field in addressesSet.addresses track by $index">
+        <fieldset data-ng-repeat="field in vr.addresses track by $index">
             <div class="container">
                 <label for="zip-code">CEP: </label>
                 <input type="number" id="cep" name="cep" ng-model="contactCtrl.cep" /><button class="" ng-click="contactCtrl.searchCEP()">Buscar</button>
-                <button class="btn btn-secondary btn-sm">Adicionar mais um endereço</button>
+                <button class="btn btn-secondary btn-sm" ng-click="addAdresses()" >Adicionar mais um endereço</button>
             </div>
 
             <div class="container">
